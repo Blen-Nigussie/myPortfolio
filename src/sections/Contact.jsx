@@ -12,6 +12,7 @@ const Contact = () => {
     email: "",
     message: "",
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +22,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setIsSubmitted(false);
 
     try {
       await emailjs.sendForm(
@@ -30,7 +32,13 @@ const Contact = () => {
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
       );
 
-      setForm({ name: "", email: "", message: "" });
+      // Reset form
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+      setIsSubmitted(true);
     } catch (error) {
       console.error("EmailJS Error:", error);
     } finally {
@@ -46,82 +54,102 @@ const Contact = () => {
       <div className="w-full h-full md:px-24 px-4 sm:px-8 ">
         <TitleHeader
           title="Get in Touch "
-          sub="💬 Have questions or ideas? Let’s talk! 🚀"
+          sub="💬 Have questions or ideas? Let's talk! 🚀"
         />
         <div className="grid grid-cols-1 md:grid-cols-12 mt-10 sm:mt-16 gap-30">
           {/* Form Section */}
           <div className="md:col-span-5">
             <div className="flex-center card-border rounded-xl p-4 sm:p-6 md:p-10">
-              <form
-                ref={formRef}
-                onSubmit={handleSubmit}
-                className="w-full flex flex-col gap-4 sm:gap-6"
-              >
-                <div>
-                  <label htmlFor="name" className="text-sm sm:text-base">
-                    Your name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder="What’s your good name?"
-                    className="w-full mt-1 p-2 sm:p-3 text-sm sm:text-base rounded-lg border border-gray-300"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="text-sm sm:text-base">
-                    Your Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="What’s your email address?"
-                    className="w-full mt-1 p-2 sm:p-3 text-sm sm:text-base rounded-lg border border-gray-300"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="text-sm sm:text-base">
-                    Your Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={form.message}
-                    onChange={handleChange}
-                    placeholder="How can I help you?"
-                    rows="4"
-                    className="w-full mt-1 p-2 sm:p-3 text-sm sm:text-base rounded-lg border border-gray-300"
-                    required
-                  />
-                </div>
-
-                <button type="submit" className="w-full sm:w-auto">
-                  <div className="cta-button group">
+              {isSubmitted ? (
+                <div className="w-full text-center p-6">
+                  <h3 className="text-xl font-semibold mb-2">Thank you!</h3>
+                  <p className="text-gray-600">
+                    Your message has been sent successfully. I'll get back to you
+                    soon!
+                  </p>
+                  <button
+                    onClick={() => setIsSubmitted(false)}
+                    className="mt-4 cta-button group"
+                  >
                     <div className="bg-circle" />
-                    <p className="text text-sm sm:text-base">
-                      {loading ? "Sending..." : "Send Message"}
-                    </p>
+                    <p className="text text-sm sm:text-base">Send another message</p>
                     <div className="arrow-wrapper">
                       <img src="/images/arrow-down.svg" alt="arrow" />
                     </div>
+                  </button>
+                </div>
+              ) : (
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                  className="w-full flex flex-col gap-4 sm:gap-6"
+                >
+                  <div>
+                    <label htmlFor="name" className="text-sm sm:text-base">
+                      Your name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="What's your good name?"
+                      className="w-full mt-1 p-2 sm:p-3 text-sm sm:text-base rounded-lg border border-gray-300"
+                      required
+                    />
                   </div>
-                </button>
-              </form>
+
+                  <div>
+                    <label htmlFor="email" className="text-sm sm:text-base">
+                      Your Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="What's your email address?"
+                      className="w-full mt-1 p-2 sm:p-3 text-sm sm:text-base rounded-lg border border-gray-300"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="text-sm sm:text-base">
+                      Your Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={form.message}
+                      onChange={handleChange}
+                      placeholder="How can I help you?"
+                      rows="4"
+                      className="w-full mt-1 p-2 sm:p-3 text-sm sm:text-base rounded-lg border border-gray-300"
+                      required
+                    />
+                  </div>
+
+                  <button type="submit" className="w-full sm:w-auto">
+                    <div className="cta-button group">
+                      <div className="bg-circle" />
+                      <p className="text text-sm sm:text-base">
+                        {loading ? "Sending..." : "Send Message"}
+                      </p>
+                      <div className="arrow-wrapper">
+                        <img src="/images/arrow-down.svg" alt="arrow" />
+                      </div>
+                    </div>
+                  </button>
+                </form>
+              )}
             </div>
           </div>
 
           {/* ContactExperience Section */}
-          <div className="md:col-span-5 md:row-span-1 min-h-[16rem] sm:min-h-[16rem] md:min-h-[16rem]  ">
+          <div className="md:col-span-5 md:row-span-1 min-h-[16rem] sm:min-h-[16rem] md:min-h-[16rem]">
             <div className="bg-black w-full h-full hover:cursor-grab rounded-2xl sm:rounded-3xl overflow-hidden">
               <ContactExperience />
             </div>
