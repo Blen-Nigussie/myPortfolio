@@ -38,6 +38,7 @@ const Contact = () => {
         email: "",
         message: "",
       });
+      formRef.current.reset();
       setIsSubmitted(true);
     } catch (error) {
       console.error("EmailJS Error:", error);
