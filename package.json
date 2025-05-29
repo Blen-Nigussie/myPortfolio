@@ -23,7 +23,6 @@
     "react-dom": "^19.0.0",
     "react-parallax-tilt": "^1.7.295",
     "react-responsive": "^10.0.1",
-    "react-tilt": "^1.0.2",
     "tailwindcss": "^4.0.14",
     "three": "^0.174.0"
   },
