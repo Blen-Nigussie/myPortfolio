@@ -255,9 +255,9 @@ const socialImgs = [
 ];
 const projects = [
   {
-    name: "Car Rent",
+    name: "Story Teller",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "Web-based platform that allows users to read, listen to, and share their own stories, creating an interactive and engaging storytelling experience for all.",
     tags: [
       {
         name: "react",
@@ -273,7 +273,7 @@ const projects = [
       },
     ],
     image: carrent,
-    source_code_link: "https://github.com/",
+    source_code_link: "https://storytellerb.netlify.app/",
   },
   {
     name: "Job IT",
