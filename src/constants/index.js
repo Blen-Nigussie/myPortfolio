@@ -15,7 +15,7 @@ import {
    git,
   figma,
   carrent,
-  jobit,
+  comingsoon,
 
 } from "../assets";
 
@@ -276,7 +276,7 @@ const projects = [
     source_code_link: "https://storytellerb.netlify.app/",
   },
   {
-    name: "Job IT",
+    name: "JobIT",
     description:
       "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
     tags: [
@@ -293,7 +293,7 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: jobit,
+    image: comingsoon,
     source_code_link: "https://github.com/",
   },
 ];
